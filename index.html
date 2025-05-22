@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aplikasi Rekap Keuangan Perusahaan - Manajemen pemasukan dan pengeluaran">
+  <title>FinanceTrack - Rekap Keuangan Perusahaan</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tambahkan favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <h1><i class="fas fa-chart-line"></i> FinanceTrack</h1>
+      <p class="subtitle"></p>
+    </header>
+
+    <main>
+      <section class="input-section">
+        <h2><i class="fas fa-plus-circle"></i> Tambah Transaksi</h2>
+        <form id="form-keuangan" class="transaction-form">
+          <div class="form-group">
+            <label for="tanggal">Tanggal</label>
+            <input type="date" id="tanggal" required />
+          </div>
+          <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <input type="text" id="keterangan" placeholder="Deskripsi transaksi" required maxlength="100" />
+          </div>
+          <div class="form-group">
+            <label for="jumlah">Jumlah (Rp)</label>
+            <input type="number" id="jumlah" placeholder="0" required min="1" step="1" />
+          </div>
+          <div class="form-group">
+            <label for="tipe">Jenis Transaksi</label>
+            <select id="tipe" required>
+              <option value="">Pilih Jenis</option>
+              <option value="pemasukan">Pemasukan</option>
+              <option value="pengeluaran">Pengeluaran</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-save"></i> Simpan Transaksi
+          </button>
+        </form>
+      </section>
+
+      <section class="data-section">
+        <div class="section-header">
+          <h2><i class="fas fa-history"></i> Riwayat Transaksi</h2>
+          <div class="action-buttons">
+            <button class="export-btn" onclick="exportKeExcel()" tooltip="Export ke CSV">
+              <i class="fas fa-file-excel"></i> Export
+            </button>
+            <button class="backup-btn" onclick="backupData()" tooltip="Backup data ke JSON">
+              <i class="fas fa-download"></i> Backup
+            </button>
+            <div class="restore-container">
+              <label for="restoreFile" class="restore-btn" tooltip="Restore dari backup">
+                <i class="fas fa-upload"></i> Restore
+                <input type="file" id="restoreFile" accept=".json" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table id="tabel-data">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Keterangan</th>
+                <th>Jenis</th>
+                <th>Jumlah (Rp)</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="summary-section">
+         <div class="chart-container">
+  <canvas id="grafikSaldo"></canvas>
+</div>
+          
+          <div class="total-container">
+            <div class="total-box income">
+              <h3>Total Pemasukan</h3>
+              <p id="total-masuk">Rp 0</p>
+            </div>
+            <div class="total-box expense">
+              <h3>Total Pengeluaran</h3>
+              <p id="total-keluar">Rp 0</p>
+            </div>
+            <div class="total-box balance">
+              <h3>Saldo</h3>
+              <p id="saldo">Rp 0</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
